@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthComponent } from './auth.component';
 import {RouterModule, Routes} from '@angular/router';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
   {path: '', component: AuthComponent, children: [
@@ -15,6 +16,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [LoginComponent, RegistrationComponent, AuthComponent]
