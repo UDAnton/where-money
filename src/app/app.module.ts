@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import {RouterModule, Routes} from '@angular/router';
 import {UsersService} from './shared/services/users.service';
 import {HttpClientModule} from '@angular/common/http';
+import {AuthService} from './shared/services/auth.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'}
@@ -18,7 +19,7 @@ const routes: Routes = [
   imports: [
     BrowserModule, AuthModule, HttpClientModule, RouterModule.forRoot(routes)
   ],
-  providers: [UsersService],
+  providers: [UsersService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

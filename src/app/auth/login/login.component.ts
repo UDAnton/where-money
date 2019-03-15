@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../shared/services/users.service';
 import {User} from '../../shared/models/user.model';
+import {Message} from '../../shared/models/message.model';
+import {AuthService} from '../../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +14,12 @@ import {User} from '../../shared/models/user.model';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  message: Message;
 
-  constructor(private usersService: UsersService) {
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService,
+    private  router: Router) {
   }
 
   ngOnInit() {
@@ -22,19 +29,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  private showMessage(text: string, type: string = 'danger') {
+    this.message = new Message(type, text);
+    window.setTimeout(() => {
+      this.message.text = '';
+    }, 5000);
+  }
+
   onSubmit() {
     const formData = this.loginForm.value;
     this.usersService.getUserByEmail(formData.email).subscribe((user: User) => {
       console.log(user);
       if (user) {
-
         if (user.password !== formData.password) {
-          alert('Пользователь не найден');
+          this.showMessage('Пароль не верный');
         } else {
-          // login
+          this.message.text = '';
+          window.localStorage.setItem('user', JSON.stringify(user));
+          this.authService.login();
+          // this.router.navigate(['']);
         }
       } else {
-        alert('Пользователь не найден');
+        this.showMessage('Пользователь не найден');
       }
     });
   }
