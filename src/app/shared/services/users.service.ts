@@ -16,4 +16,10 @@ export class UsersService {
     }));
   }
 
+  createNewUser(user: User): Observable<User> {
+    return this.httpClient.post(`http://localhost:3000/users`, user).pipe(map(data => {
+      return data[0];
+    }));
+  }
+
 }

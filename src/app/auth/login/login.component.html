@@ -11,9 +11,9 @@
       formControlName="email"
     >
     <span class="form-help-text" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
-    <span *ngIf="loginForm.get('email')['errors']['required']">Email не может быть пустым</span>
-    <span *ngIf="loginForm.get('email')['errors']['email']">Введите корректный email</span>
-  </span>
+      <span *ngIf="loginForm.get('email')['errors']['required']">Email не может быть пустым</span>
+      <span *ngIf="loginForm.get('email')['errors']['email']">Введите корректный email</span>
+    </span>
   </div>
   <div class="form-group" [ngClass]="{'has-error': loginForm.get('password').invalid && loginForm.get('password').touched}">
     <label for="password">Пароль</label>
@@ -25,19 +25,19 @@
       formControlName="password"
     >
     <span class="form-help-text" *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
-    <span *ngIf="loginForm.get('password')['errors']['required']">Пароль не может быть пустым</span>
-    <span *ngIf="loginForm.get('password')['errors']['minlength']">
-      Пароль должен быть больше {{loginForm.get('password')['errors']['minlength']['requiredLength']}}
-      символов. Сейчас {{loginForm.get('password')['errors']['minlength']['actualLength']}}.
+      <span *ngIf="loginForm.get('password')['errors']['required']">Пароль не может быть пустым</span>
+      <span *ngIf="loginForm.get('password')['errors']['minlength'] && loginForm.get('password')['errors']['minlength']['requiredLength']">
+        Пароль должен быть больше {{loginForm.get('password')['errors']['minlength']['requiredLength']}}
+        символов. Сейчас {{loginForm.get('password')['errors']['minlength']['actualLength']}}.
+      </span>
     </span>
-  </span>
   </div>
   <div class="form-group">
     <button [disabled]="loginForm.invalid" type="submit" class="btn btn-block btn-primary">Войти</button>
   </div>
   <div class="form-group">
     <p class="text-muted text-xs-center">
-      Нет аккаунта? <a [routerLink]="'registration'">Зарегистрироваться!</a>
+      Нет аккаунта? <a [routerLink]="'/registration'">Зарегистрироваться!</a>
     </p>
   </div>
 </form>
