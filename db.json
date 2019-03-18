@@ -5,6 +5,18 @@
       "email": "wfm@mail.ru",
       "password": "12345678",
       "name": "Администратор"
+    },
+    {
+      "email": "uadjob@gmail.com",
+      "password": "qwerty",
+      "name": "Anton Udovychenko",
+      "id": 2
+    },
+    {
+      "email": "test@mail.com",
+      "password": "qwerty",
+      "name": "Test Tester",
+      "id": 3
     }
   ],
   "bill": {

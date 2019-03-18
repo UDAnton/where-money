@@ -13,6 +13,7 @@
     <span class="form-help-text" *ngIf="registrationForm.get('email').invalid && registrationForm.get('email').touched">
       <span *ngIf="registrationForm.get('email')['errors']['required']">Email не может быть пустым</span>
       <span *ngIf="registrationForm.get('email')['errors']['email']">Введите корректный email</span>
+      <span *ngIf="registrationForm.get('email')['errors']['forbiddenEmail']">Email уже занят</span>
     </span>
   </div>
   <div class="form-group"

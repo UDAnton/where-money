@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../shared/services/users.service';
 import {User} from '../../shared/models/user.model';
 import {Router} from '@angular/router';
+import {reject} from 'q';
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails.bind(this)),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
       'name': new FormControl(null, [Validators.required]),
       'agree': new FormControl(null, [Validators.required, Validators.requiredTrue]),
@@ -35,6 +36,18 @@ export class RegistrationComponent implements OnInit {
         console.log(newUser);
         this.router.navigate(['login'], {queryParams: {nowCanLogin: true}});
       });
+  }
+
+  forbiddenEmails(control: FormControl): Promise<any> {
+    return new Promise((resolve) => {
+      this.usersService.getUserByEmail(control.value).subscribe((user: User) => {
+        if (user) {
+          resolve({forbiddenEmail: true});
+        } else {
+          resolve(null);
+        }
+      });
+    });
   }
 
 }
