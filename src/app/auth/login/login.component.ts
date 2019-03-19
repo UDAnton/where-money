@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.message = new Message('danger', '');
 
     this.route.queryParams.subscribe((params: Params) => {
       if (params['nowCanLogin']) {
@@ -37,9 +38,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // TODO rewrite creating object Message
   private showMessage(text: string, type: string = 'danger') {
-    this.message = new Message(type, text);
+    this.message.text = text;
+    this.message.type = type;
+
     window.setTimeout(() => {
       this.message.text = '';
     }, 5000);
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
           this.message.text = '';
           window.localStorage.setItem('user', JSON.stringify(user));
           this.authService.login();
-          // this.router.navigate(['']);
+          this.router.navigate(['/system', 'bill']);
         }
       } else {
         this.showMessage('Пользователь не найден');
